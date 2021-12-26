@@ -1,65 +1,8 @@
 import { useTodo } from '../hooks/useTodo'
-import React, { MouseEventHandler, useRef } from 'react'
-import * as todoData from '../apis/todos'
-
-type TodoTitleProps = {
-  title: string,
-  as: string
-}
-type TodoItemProps = {
-  todo: todoData.Todo,
-  toggleTodoListItemStatus: Function,
-  deleteTodoListItem: Function
-}
-type TodoListProps = {
-  todoList: todoData.TodoList,
-  toggleTodoListItemStatus: Function,
-  deleteTodoListItem: Function
-}
-
-const TodoTitle = ({ title, as }: TodoTitleProps) => {
-  if (as === 'h1') return <h1>{title}</h1>
-  if (as === 'h2') return <h2>{title}</h2>
-
-  return <p>{title}</p>
-}
-
-const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }: TodoItemProps) => {
-  const handleToggleTodoListItemStatus = () => toggleTodoListItemStatus(todo.id, todo.done)
-  const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id)
-  return (
-    <li>
-      {todo.content}
-      <button onClick={handleToggleTodoListItemStatus}>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
-      <button onClick={handleDeleteTodoListItem}>削除</button>
-    </li>
-  )
-}
-
-const TodoList = ({ todoList, toggleTodoListItemStatus, deleteTodoListItem }: TodoListProps) => {
-  return (
-    <ul>
-      {todoList.map((todo) => (
-        <TodoItem
-          todo={todo}
-          key={todo.id}
-          toggleTodoListItemStatus={toggleTodoListItemStatus}
-          deleteTodoListItem={deleteTodoListItem}
-        />
-      ))}
-    </ul>
-  )
-}
-
-const TodoAdd = ({ inputEl, handleAddTodoListItem }: { inputEl: React.MutableRefObject<HTMLTextAreaElement>, handleAddTodoListItem: MouseEventHandler }) => {
-  return (
-    <>
-      <textarea ref={inputEl} />
-
-      <button onClick={handleAddTodoListItem}>+ TODOを追加</button>
-    </>
-  )
-}
+import React, { useRef } from 'react'
+import { TodoAdd } from './TodoAdd'
+import { TodoList } from './TodoList'
+import { TodoTitle } from './TodoTitle'
 
 function App() {
   const { todoList, addTodoListItem, toggleTodoListItemStatus, deleteTodoListItem } = useTodo()
