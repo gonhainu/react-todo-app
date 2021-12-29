@@ -11,9 +11,29 @@ export const TodoItem = ({ todo, toggleTodoListItemStatus, deleteTodoListItem }:
   const handleDeleteTodoListItem = () => deleteTodoListItem(todo.id)
   return (
     <li>
-      {todo.content}
-      <button onClick={handleToggleTodoListItemStatus}>{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
-      <button onClick={handleDeleteTodoListItem}>削除</button>
+      <span className='font-base mr-4'>{todo.content}</span>
+      <button
+        className='
+          px-2
+          py-1
+          bg-blue-400
+          text-white
+          rounded
+          hover:bg-blue-500
+        '
+        onClick={handleToggleTodoListItemStatus}
+      >{todo.done ? '未完了リストへ' : '完了リストへ'}</button>
+      <button
+        className='
+          px-2
+          py-1
+          bg-red-400
+          text-white
+          rounded
+          hover:bg-red-500
+        '
+        onClick={handleDeleteTodoListItem}
+      >削除</button>
     </li>
   )
 }
